@@ -3,10 +3,10 @@ library(ggplot2)
 library(xlsx)
 
 #Pathways for files to read in
-path_to_files <- "/Users/darneson/Desktop/UCLA_Bioinformatics/Classes/2014/Spring/Statistical_Methods_in_Computational_Biology/Final_Project/Course_data/Epigenome_imputated_data_chrom21"
+path_to_files <- paste(getwd(),"/Course_data/Epigenome_imputated_data_chrom21",sep="")
 all_files <- list.files(path = path_to_files)
-path_to_meta_data <- "~/Desktop/UCLA_Bioinformatics/Classes/2014/Spring/Statistical_Methods_in_Computational_Biology/Final_Project/Course_data/Metadata.xlsx"
-write_directory <- "~/Desktop/UCLA_Bioinformatics/Classes/2014/Spring/Statistical_Methods_in_Computational_Biology/Final_Project/Course_data/Output"
+path_to_meta_data <- paste(getwd(), "/Course_data/Metadata.xlsx",sep="")
+write_directory <- paste(getwd(), "/Course_data/Output", sep="")
 
 cell_groups <- read.xlsx(path_to_meta_data,1)
 #Get just the group names
