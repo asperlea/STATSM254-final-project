@@ -24,18 +24,41 @@ for (file in all_files){
   file_path <- paste(path_to_files, file ,sep = "/")
   print(paste("reading file from: ", file_path, sep = ""))
   mypath <- paste(write_directory, "/PCA_BarPlot_", file, ".pdf", sep="")
-  print(paste("saving barplot as: ",mypath, sep=""))
-  jpeg(file=mypath)
+  
+  #print(paste("saving barplot as: ",mypath, sep=""))
+  #jpeg(file=mypath)
   p_vals = read.csv(file_path, row.names = 1, header = TRUE, sep = "\t", stringsAsFactors = FALSE, fill = TRUE, strip.white=TRUE)
-  new_p_vals <- p_vals[,c(1:16,18:51,53:61,63,65,66:77,79:83,87,88,90:93,98:110)]
+  new_p_vals <- t(p_vals[,c(1:16,18:51,53:61,63,65,66:77,79:83,87,88,90:93,98:110)])
+  scaledData <- data.frame(scale(new_p_vals)) # scale data to make variance uniform
+  scaledData <- scaledData[, colSums(is.na(scaledData)) != nrow(scaledData)] # remove NAs
+  print("Done.")
   
-  #pca
-  #pca <- prcomp((p_vals))
-  pca <- prcomp(t(new_p_vals))
-  jpeg(paste(write_directory, "/elbow-pc-", file, ".jpg", sep=""))
-  plot(pca, type='l') # figure out how to get elbow of this
+  #pca and scree plots
+  #pca <- prcomp(scaledData)
+  #jpeg(paste(write_directory, "/bar-pc-", file, ".jpg", sep=""))
+  #plot(pca)
+  #dev.off()
+  #jpeg(paste(write_directory, "/elbow-pc", file, ".jpg", sep=""))
+  #plot(pca, type='l') # figure out how to get elbow of this
+  #dev.off()
+  #x <- summary(pca)
+  #vars <- x$sdev^2
+  #vars <- vars/sum(vars)
+  #write.table(cbind("Standard deviation" = x$sdev, "Proportion of Variance" = vars, "Cumulative Proportion" = cumsum(vars)), file=paste(write_directory, "/summary-pc", file, ".txt", sep=""), sep="\t")
   
-  print(paste("Writing bins for ", file, sep=""))
+  # Plot variance of columns to make sure variance is uniform after scaling
+  #print(paste("Plotting variance of columns for", file, sep=""))
+  #mar <- par()$mar
+  #par(mar=mar+c(0,5,0,0))
+  #jpeg(paste(write_directory, "/varPlot-", file, ".jpg", sep=""))
+  #plot(apply(scaledData, 2, var))
+  #barplot(apply(new_p_vals[,950:1000], 2, var), horiz=T, las=1, cex.names=0.8)
+  #dev.off()
+  #par(mar=mar)
+  #print("Done.")
+  
+  #Write loadings
+  print(paste("Writing loadings for ", file, sep=""))
   binsPath <- paste(write_directory, "/PCBins/", file, ".txt", sep="")
   write(file, file=binsPath)
   for (i in 1:5) {
@@ -54,7 +77,7 @@ for (file in all_files){
   #write.table(cbind("Standard deviation" = x$sdev, "Proportion of Variance" = vars, "Cumulative Proportion" = cumsum(vars)), file=paste(write_directory, "/new-pc-", file, "-summary.txt", sep=""), sep="\t")
               
   #melted <- cbind(cell_groups, melt(pca$rotation[,1:9]))
-  melted <- cbind(chr_regions, melt(pca$rotation[,1:9]))
+  #melted <- cbind(chr_regions, melt(pca$rotation[,1:9]))
 
 #   #bar plot and save
 #   ggplot(data=melted) +
