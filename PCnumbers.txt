@@ -1,0 +1,10 @@
+DNase 3
+H3K4me1 2
+H3K4me3 4
+H3K9ac 4
+H3K9me3 2
+H3K27ac 3
+H3K27me3 2
+H3K36me3 4
+RNAseq 2
+

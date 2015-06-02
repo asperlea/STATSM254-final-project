@@ -27,10 +27,32 @@ for (file in all_files){
   print(paste("saving barplot as: ",mypath, sep=""))
   jpeg(file=mypath)
   p_vals = read.csv(file_path, row.names = 1, header = TRUE, sep = "\t", stringsAsFactors = FALSE, fill = TRUE, strip.white=TRUE)
-
+  new_p_vals <- p_vals[,c(1:16,18:51,53:61,63,65,66:77,79:83,87,88,90:93,98:110)]
+  
   #pca
   #pca <- prcomp((p_vals))
-  pca <- prcomp(t(p_vals))
+  pca <- prcomp(t(new_p_vals))
+  jpeg(paste(write_directory, "/elbow-pc-", file, ".jpg", sep=""))
+  plot(pca, type='l') # figure out how to get elbow of this
+  
+  print(paste("Writing bins for ", file, sep=""))
+  binsPath <- paste(write_directory, "/PCBins/", file, ".txt", sep="")
+  write(file, file=binsPath)
+  for (i in 1:5) {
+    write(paste("PC", i, ":", sep=""), file=binsPath, append=TRUE)
+    sorted <- sort(pca$rotation[,i], decreasing=TRUE)
+    for (j in 1:length(sorted)) {
+      write(paste(names(sorted)[j], sorted[j], sep=","), file=binsPath, append=TRUE)
+    }
+  }
+  print ("Done.")
+  
+  #pca summary
+  #x <- summary(pca)
+  #vars <- x$sdev^2
+  #vars <- vars/sum(vars)
+  #write.table(cbind("Standard deviation" = x$sdev, "Proportion of Variance" = vars, "Cumulative Proportion" = cumsum(vars)), file=paste(write_directory, "/new-pc-", file, "-summary.txt", sep=""), sep="\t")
+              
   #melted <- cbind(cell_groups, melt(pca$rotation[,1:9]))
   melted <- cbind(chr_regions, melt(pca$rotation[,1:9]))
 
@@ -43,15 +65,23 @@ for (file in all_files){
 
   
   #pca plots
-  scores <- data.frame(cell_groups, pca$x[,1:3])
-  qplot(x=PC1, y=PC2, data=scores, colour=factor(cell_groups)) +
-    theme(legend.position="none")
-  ggsave(paste(write_directory,"/",file,"PC_12.pdf",sep=""))
-  qplot(x=PC1, y=PC3, data=scores, colour=factor(cell_groups)) +
-    theme(legend.position="none")
-  ggsave(paste(write_directory,"/",file,"PC_13.pdf",sep=""))
-  qplot(x=PC2, y=PC3, data=scores, colour=factor(cell_groups)) +
-    theme(legend.position="none")
-  ggsave(paste(write_directory,"/",file,"PC_23.pdf",sep=""))
-  print(paste("finished ", file, sep=""))
+#  scores <- data.frame(cell_groups, pca$x[,1:3])
+#  qplot(x=PC1, y=PC2, data=scores, colour=factor(cell_groups)) +
+#    theme(legend.position="none")
+#  ggsave(paste(write_directory,"/",file,"PC_12.pdf",sep=""))
+#  qplot(x=PC1, y=PC3, data=scores, colour=factor(cell_groups)) +
+#    theme(legend.position="none")
+#  ggsave(paste(write_directory,"/",file,"PC_13.pdf",sep=""))
+#  qplot(x=PC2, y=PC3, data=scores, colour=factor(cell_groups)) +
+#    theme(legend.position="none")
+#  ggsave(paste(write_directory,"/",file,"PC_23.pdf",sep=""))
+#  print(paste("finished ", file, sep=""))
+
+  #distance between PCs
+#  d12 = dist(rbind(scores$PC1, scores$PC2))
+#  print(paste("d12=", d12))
+#  d23 = dist(rbind(scores$PC2, scores$PC3))
+#  print(paste("d23=", d23))
+#  d13 = dist(rbind(scores$PC1, scores$PC3))
+#  print(paste("d13=", d13))
 }

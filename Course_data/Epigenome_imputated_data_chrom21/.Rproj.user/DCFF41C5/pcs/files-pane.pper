@@ -1,0 +1,9 @@
+{
+    "path" : "~/Stats in comp bio/Course data/Epigenome imputated data chrom21",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}
