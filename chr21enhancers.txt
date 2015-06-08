@@ -1,0 +1,16 @@
+>Human|chr21:19814334-19815155 | element 726 | negative 
+>Human|chr21:32650843-32651711 | element 945 | negative 
+>Human|chr21:34290782-34292115 | element 1188 | positive  | neural tube[3/6] | hindbrain (rhombencephalon)[3/6] | midbrain (mesencephalon)[3/6] | forebrain[3/6]
+>Human|chr21:17681162-17682802 | element 1304 | positive  | neural tube[5/5] | hindbrain (rhombencephalon)[5/5] | midbrain (mesencephalon)[5/5] | forebrain[5/5]
+>Human|chr21:34465959-34469066 | element 1346 | positive  | midbrain (mesencephalon)[7/8] | forebrain[8/8]
+>Human|chr21:17526224-17528103 | element 1377 | negative 
+>Human|chr21:17951012-17953659 | element 1441 | positive  | somite[7/9] | limb[9/9]
+>Human|chr21:40361359-40363126 | element 1516 | positive  | hindbrain (rhombencephalon)[4/5] | forebrain[4/5] | limb[4/5] | tail[4/5]
+>Human|chr21:34221456-34223948 | element 1548 | positive  | forebrain[6/6]
+>Human|chr21:28326327-28327753 | element 1684 | positive  | somite[5/6] | midbrain (mesencephalon)[3/6] | dorsal root ganglion[5/6] | trigeminal V (ganglion, cranial)[3/6]
+>Human|chr21:17968630-17971417 | element 1692 | negative 
+>Human|chr21:39227606-39229223 | element 1811 | positive  | neural tube[5/] | hindbrain (rhombencephalon)[5/] | midbrain (mesencephalon)[6/]
+>Human|chr21:35915964-35919662 | element 2084 | positive  | other[4/5]
+>Human|chr21:35817695-35821340 | element 2175 | negative 
+>Human|chr21:44010872-44014322 | element 2248 | positive  | neural tube[5/14] | limb[8/14]
+>Human|chr21:29655315-29656764 | element 2400 | negative 
