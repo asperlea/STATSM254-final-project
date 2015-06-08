@@ -1,6 +1,7 @@
 library(reshape2)
 library(ggplot2)
 library(xlsx)
+library(stats)
 
 #Pathways for files to read in
 path_to_files <- paste(getwd(),"/Course_data/Epigenome_imputated_data_chrom21",sep="")
@@ -34,7 +35,7 @@ for (file in all_files){
   print("Done.")
   
   #pca and scree plots
-  #pca <- prcomp(scaledData)
+  pca <- prcomp(scaledData)
   #jpeg(paste(write_directory, "/bar-pc-", file, ".jpg", sep=""))
   #plot(pca)
   #dev.off()
@@ -60,14 +61,21 @@ for (file in all_files){
   #Write loadings
   print(paste("Writing loadings for ", file, sep=""))
   binsPath <- paste(write_directory, "/PCBins/", file, ".txt", sep="")
-  write(file, file=binsPath)
+  #write(file, file=binsPath)
+  sortedLoadings <- apply(pca$rotation[,1:5], 2, sort)
   for (i in 1:5) {
-    write(paste("PC", i, ":", sep=""), file=binsPath, append=TRUE)
+    print(paste(file, "-", i))
+    #write(paste("PC", i, ":", sep=""), file=binsPath, append=TRUE)
     sorted <- sort(pca$rotation[,i], decreasing=TRUE)
-    for (j in 1:length(sorted)) {
-      write(paste(names(sorted)[j], sorted[j], sep=","), file=binsPath, append=TRUE)
-    }
+    #print(paste(mean(sorted), sd(sorted), sep=","))
+    #jpeg(paste(write_directory, "/", file, "-", i, "-loadings.jpg", sep=""))
+    print(paste("mean=", mean(sorted), "var=", var(sorted), sep=""))
+    #dev.off()
+    #for (j in 1:length(sorted)) {
+    #  write(paste(names(sorted)[j], sorted[j], sep=","), file=binsPath, append=TRUE)
+    #}
   }
+  jpeg("ksTests?")
   print ("Done.")
   
   #pca summary
